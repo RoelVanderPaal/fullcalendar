@@ -337,11 +337,12 @@ function ResourceView(element, calendar, viewName) {
 			html += "<th class='fc-agenda-axis " + headerClass + "'>&nbsp;</th>";
 		}
 
+		var resources = opt('resources');
 		for (col=0; col<colCnt; col++) {
 			date = cellToDate(0, col);
 			html +=
 				"<th class='fc-" + dayIDs[date.getDay()] + " fc-col" + col + ' ' + headerClass + "'>" +
-				htmlEscape(formatDate(date, colFormat)) +
+				htmlEscape(resources[col].name) +
 				"</th>";
 		}
 
