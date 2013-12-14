@@ -87,36 +87,44 @@ function ResourceEventRenderer() {
 			minMinute = getMinMinute(),
 			maxMinute = getMaxMinute(),
 			d,
-			visEventEnds = $.map(events, slotEventEnd),
 			i,
 			j, seg,
 			colSegs,
 			segs = [];
 
+		var resourceIds = opt('resources').map(function (resource) {
+			return resource.id;
+		});
+
 		for (i=0; i<colCnt; i++) {
 
-			d = cellToDate(0, i);
+			var filteredEvents = events.filter(function (event) {
+				return resourceIds.indexOf(event.resourceId) == i;
+			});
+			d = cellToDate(0, 0);
 			addMinutes(d, minMinute);
-
 			colSegs = sliceSegs(
-				events,
-				visEventEnds,
+				filteredEvents,
+				$.map(filteredEvents, slotEventEnd),
 				d,
-				addMinutes(cloneDate(d), maxMinute-minMinute)
+				addMinutes(cloneDate(d), maxMinute - minMinute)
 			);
+			for (j = 0; j < colSegs.length; j++) {
+				colSegs[j].start = addDays(cloneDate(colSegs[j].start), i, true);
+				colSegs[j].end = addDays(cloneDate(colSegs[j].end), i, true);
+				colSegs[j].col = i;
+			}
 
 			colSegs = placeSlotSegs(colSegs); // returns a new order
 
-			for (j=0; j<colSegs.length; j++) {
+			for (j = 0; j < colSegs.length; j++) {
 				seg = colSegs[j];
-				seg.col = i;
 				segs.push(seg);
 			}
 		}
 
 		return segs;
 	}
-
 
 	function sliceSegs(events, visEventEnds, start, end) {
 		var segs = [],
