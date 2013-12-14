@@ -64,7 +64,7 @@ function ResourceView(element, calendar, viewName) {
 	View.call(t, element, calendar, viewName);
 	OverlayManager.call(t);
 	SelectionManager.call(t);
-	AgendaEventRenderer.call(t);
+	ResourceEventRenderer.call(t);
 	var opt = t.opt;
 	var trigger = t.trigger;
 	var renderOverlay = t.renderOverlay;
