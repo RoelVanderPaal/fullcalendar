@@ -183,8 +183,20 @@ function ResourceDayEventRenderer() {
 	function buildSegmentsForEvent(event) {
 		var startDate = event.start;
 		var endDate = exclEndDay(event);
+		if (startDate > t.visStart) {
+			return [];
+		}
+		var resourceIds = opt('resources').map(function (resource) {
+			return resource.id;
+		});
+		var resourceIndex = resourceIds.indexOf(event.resourceId);
 		var segments = rangeToSegments(startDate, endDate);
 		for (var i=0; i<segments.length; i++) {
+			if (segments[i].rightCol > segments[i].leftCol) {
+				segments[i].isEnd = false;
+			}
+			segments[i].leftCol = segments[i].leftCol + resourceIndex;
+			segments[i].rightCol = segments[i].leftCol;
 			segments[i].event = event;
 		}
 		return segments;
