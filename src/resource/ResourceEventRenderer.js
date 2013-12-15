@@ -10,7 +10,7 @@ function ResourceEventRenderer() {
 
 
 	// imports
-	DayEventRenderer.call(t);
+	ResourceDayEventRenderer.call(t);
 	var opt = t.opt;
 	var trigger = t.trigger;
 	var isEventDraggable = t.isEventDraggable;

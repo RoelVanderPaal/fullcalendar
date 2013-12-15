@@ -37,6 +37,7 @@
         "src/common/HoverListener.js",
         "src/common/HorizontalPositionCache.js",
 	    "src/resource/ResourceDayView.js",
+	    "src/resource/ResourceDayEventRenderer.js",
 	    "src/resource/ResourceEventRenderer.js",
 	    "src/resource/ResourceView.js",
         "src/outro.js"
